@@ -1,0 +1,15 @@
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\bin\Debug\net8.0\BriscolaPokemon.Downloader.exe
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\bin\Debug\net8.0\BriscolaPokemon.Downloader.deps.json
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\bin\Debug\net8.0\BriscolaPokemon.Downloader.runtimeconfig.json
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\bin\Debug\net8.0\BriscolaPokemon.Downloader.dll
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\bin\Debug\net8.0\BriscolaPokemon.Downloader.pdb
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.AssemblyInfoInputs.cache
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.AssemblyInfo.cs
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.sourcelink.json
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.dll
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\refint\BriscolaPokemon.Downloader.dll
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.pdb
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\BriscolaPokemon.Downloader.genruntimeconfig.cache
+C:\Users\admin\Desktop\Briscola_Pokemon\BriscolaPokemon.Downloader\obj\Debug\net8.0\ref\BriscolaPokemon.Downloader.dll

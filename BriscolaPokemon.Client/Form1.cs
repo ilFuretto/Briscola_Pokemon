@@ -1,6 +1,9 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 using BriscolaPokemon.Core;
 
 namespace BriscolaPokemon.Client
@@ -183,7 +186,45 @@ namespace BriscolaPokemon.Client
             {
                 lblStato.Text = "Partita finita!";
                 AbilitaCarte(false);
-                MessageBox.Show("La partita è terminata!");
+
+                // Legge i punteggi finali
+                string[] parti = msg.Payload.Split(',');
+                int puntiG1 = int.Parse(parti[0]);
+                int puntiG2 = int.Parse(parti[1]);
+
+                int miei = 0;
+                int avversario = 0;
+                if (_mioNumero == 1)
+                {
+                    miei = puntiG1;
+                    avversario = puntiG2;
+                }
+                else
+                {
+                    miei = puntiG2;
+                    avversario = puntiG1;
+                }
+
+                string risultato = "";
+                if (miei > avversario)
+                {
+                    risultato = "HAI VINTO!";
+                }
+                else if (avversario > miei)
+                {
+                    risultato = "HAI PERSO!";
+                }
+                else
+                {
+                    risultato = "PAREGGIO!";
+                }
+
+                string messaggio = risultato + "\n\n"
+                    + "Punti tuoi: " + miei + "\n"
+                    + "Punti avversario: " + avversario + "\n\n"
+                    + "Totale punti in gioco: 120";
+
+                MessageBox.Show(messaggio, "Fine Partita", MessageBoxButtons.OK);
             }
             else if (msg.Tipo == "ERRORE")
             {
@@ -193,32 +234,121 @@ namespace BriscolaPokemon.Client
         // Crea un bottone per ogni carta nella mano
         private void MostraCarte()
         {
-            // Rimuove i bottoni precedenti
             for (int i = 0; i < _bottoniCarte.Count; i++)
             {
                 this.Controls.Remove(_bottoniCarte[i]);
             }
             _bottoniCarte.Clear();
 
-            // Crea un bottone per ogni carta
             for (int i = 0; i < _mano.Count; i++)
             {
                 Carta c = _mano[i];
                 Button btn = new Button();
-                btn.Text = c.ToString();
-                btn.Width = 80;
-                btn.Height = 100;
-                btn.Left = 20 + (i * 90);
+                btn.Width = 90;
+                btn.Height = 120;
+                btn.Left = 20 + (i * 100);
                 btn.Top = 200;
-                btn.Tag = c; // salviamo la carta nel bottone
+                btn.Tag = c;
                 btn.Click += BtnCarta_Click;
                 btn.Enabled = _mioTurno;
+
+                string percorso = Path.Combine(
+                    Application.StartupPath,
+                    "immagini",
+                    c.GetNomeImmagine()
+                );
+
+                if (File.Exists(percorso))
+                {
+                    Bitmap originale = new Bitmap(percorso);
+                    Bitmap finale = new Bitmap(btn.Width, btn.Height);
+                    Graphics g = Graphics.FromImage(finale);
+
+                    g.Clear(Color.White);
+                    g.DrawImage(originale, 0, 0, btn.Width, btn.Height);
+
+                    // --- SEME IN ALTO AL CENTRO ---
+                    string seme = c.Seme.ToString();
+                    Font fontSeme = new Font("Arial", 9, FontStyle.Bold);
+                    SizeF dimSeme = g.MeasureString(seme, fontSeme);
+                    float xSeme = (btn.Width - dimSeme.Width) / 2;
+
+                    // Colore diverso per ogni seme
+                    Color coloreSeme;
+                    if (c.Seme == Seme.Coppe)
+                    {
+                        coloreSeme = Color.Blue;
+                    }
+                    else if (c.Seme == Seme.Denari)
+                    {
+                        coloreSeme = Color.Orange;
+                    }
+                    else if (c.Seme == Seme.Bastoni)
+                    {
+                        coloreSeme = Color.Green;
+                    }
+                    else
+                    {
+                        coloreSeme = Color.Red;
+                    }
+
+                    // Sfondo bianco dietro al nome del seme
+                    g.FillRectangle(
+                        new SolidBrush(Color.FromArgb(200, Color.White)),
+                        xSeme - 2, 2,
+                        dimSeme.Width + 4, dimSeme.Height
+                    );
+
+                    // Scrivi il seme colorato
+                    g.DrawString(seme, fontSeme, new SolidBrush(coloreSeme), xSeme, 2);
+
+                    // --- NUMERO IN BASSO A DESTRA ---
+                    string numero = "";
+                    if (c.Valore == 8)
+                    {
+                        numero = "J";
+                    }
+                    else if (c.Valore == 9)
+                    {
+                        numero = "Q";
+                    }
+                    else if (c.Valore == 10)
+                    {
+                        numero = "K";
+                    }
+                    else
+                    {
+                        numero = c.Valore.ToString();
+                    }
+                    Font fontNumero = new Font("Arial", 22, FontStyle.Bold);
+                    SizeF dimNumero = g.MeasureString(numero, fontNumero);
+                    float xNumero = btn.Width - dimNumero.Width - 4;
+                    float yNumero = btn.Height - dimNumero.Height - 4;
+
+                    g.FillRectangle(
+                        new SolidBrush(Color.FromArgb(180, Color.Black)),
+                        xNumero - 4, yNumero - 2,
+                        dimNumero.Width + 8, dimNumero.Height + 2
+                    );
+
+                    g.DrawString(numero, fontNumero, new SolidBrush(Color.Yellow), xNumero, yNumero);
+
+                    g.Dispose();
+                    originale.Dispose();
+
+                    btn.Image = finale;
+                    btn.ImageAlign = ContentAlignment.MiddleCenter;
+                    btn.Text = "";
+                }
+                else
+                {
+                    btn.Text = c.ToString();
+                }
 
                 this.Controls.Add(btn);
                 _bottoniCarte.Add(btn);
             }
         }
-
         private void BtnCarta_Click(object sender, EventArgs e)
         {
             if (!_mioTurno) return;

@@ -177,9 +177,10 @@ while (true)
     // --- FASE 5: controlla se la partita è finita ---
     if (manoGiocatore1.Count == 0 && manoGiocatore2.Count == 0)
     {
-        InviaMessaggio(client1, "FINE_PARTITA", "");
-        InviaMessaggio(client2, "FINE_PARTITA", "");
-        Console.WriteLine("Partita terminata!");
+        string punteggiFinali = puntiGiocatore1 + "," + puntiGiocatore2;
+        InviaMessaggio(client1, "FINE_PARTITA", punteggiFinali);
+        InviaMessaggio(client2, "FINE_PARTITA", punteggiFinali);
+        Console.WriteLine("Partita terminata! G1=" + puntiGiocatore1 + " G2=" + puntiGiocatore2);
         break;
     }
 }
