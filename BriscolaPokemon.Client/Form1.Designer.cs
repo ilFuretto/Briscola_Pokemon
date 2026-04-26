@@ -100,7 +100,6 @@
             txtIP.TabIndex = 4;
             txtIP.Text = "127.0.0.1";
             txtIP.TextAlign = HorizontalAlignment.Center;
-            txtIP.Click += btnConnetti_Click;
             // 
             // label1
             // 
