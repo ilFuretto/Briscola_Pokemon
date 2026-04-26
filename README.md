@@ -121,4 +121,12 @@ CREDITI
 - Sprite Pokémon: PokéAPI Sprites (https://github.com/PokeAPI/sprites)
   -> gratuiti e open source
 
+<<<<<<< HEAD
 - Progetto realizzato in C# con .NET 8.0 e WinForms
+=======
+<<<<<<< HEAD
+- Progetto realizzato in C# con .NET 8.0 e WinForms
+=======
+- Progetto realizzato in C# con .NET 8.0 e WinForms
+>>>>>>> 232792b (miglioramenti grafici)
+>>>>>>> b0653b8
