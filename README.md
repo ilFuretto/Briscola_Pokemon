@@ -94,7 +94,7 @@ REGOLE PER VINCERE UNA MANO
 [2] Se entrambe le carte sono briscola
     -> Vince quella con il valore in punti più alto
 
-[3] Se le carte hanno lo stesso seme (non briscola)
+[3] Se le carte hanno lo stesso seme
     -> Vince quella con il valore in punti più alto
     -> A parità di punti vince quella col numero più alto
 
@@ -122,8 +122,3 @@ CREDITI
   -> gratuiti e open source
 
 - Progetto realizzato in C# con .NET 8.0 e WinForms
-
-
-===============================================================================
-FINE DOCUMENTO
-===============================================================================
