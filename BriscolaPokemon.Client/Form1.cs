@@ -20,6 +20,61 @@ namespace BriscolaPokemon.Client
         public Form1()
         {
             InitializeComponent();
+
+            string percorsoSfondo = Path.Combine(Application.StartupPath, "sfondo.png");
+            if (File.Exists(percorsoSfondo))
+            {
+                this.BackgroundImage = Image.FromFile(percorsoSfondo);
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            Font fontGrassetto = new Font("Arial", 15, FontStyle.Bold);
+
+            // Label — sfondo nero, testo bianco
+            lblStato.BackColor = Color.Black;
+            lblStato.ForeColor = Color.White;
+            lblStato.Font = fontGrassetto;
+
+            lblBriscola.BackColor = Color.Black;
+            lblBriscola.ForeColor = Color.White;
+            lblBriscola.Font = fontGrassetto;
+
+            lblAvversario.BackColor = Color.Black;
+            lblAvversario.ForeColor = Color.White;
+            lblAvversario.Font = fontGrassetto;
+
+            lblPunteggi.BackColor = Color.Black;
+            lblPunteggi.ForeColor = Color.White;
+            lblPunteggi.Font = fontGrassetto;
+
+            lblMazzo.BackColor = Color.Black;
+            lblMazzo.ForeColor = Color.White;
+            lblMazzo.Font = fontGrassetto;
+
+            // ListBox carte prese — tema scuro
+            lstCartePrese.BackColor = Color.Black;
+            lstCartePrese.ForeColor = Color.White;
+            lstCartePrese.Font = fontGrassetto;
+            lstCartePrese.BorderStyle = BorderStyle.FixedSingle;
+
+            // Label "Carte prese:" sopra la listbox
+            lblCartePrese.BackColor = Color.Black;
+            lblCartePrese.ForeColor = Color.White;
+            lblCartePrese.Font = fontGrassetto;
+
+            lblTueCarte.BackColor = Color.Black;
+            lblTueCarte.ForeColor = Color.White;
+            lblTueCarte.Font = fontGrassetto;
+
+            // Bottone connetti
+            btnConnetti.BackColor = Color.Black;
+            btnConnetti.ForeColor = Color.White;
+            btnConnetti.Font = fontGrassetto;
+
+            // TextBox IP
+            txtIP.BackColor = Color.Black;
+            txtIP.ForeColor = Color.White;
+            txtIP.Font = fontGrassetto;
         }
 
         private void btnConnetti_Click(object sender, EventArgs e)
@@ -83,13 +138,102 @@ namespace BriscolaPokemon.Client
         }
 
         // Gestisce ogni messaggio ricevuto dal server
+        // Metodo riutilizzabile per creare l'immagine di una carta
+        private Bitmap CreaImmagineCarta(Carta c, int larghezza, int altezza)
+        {
+            string percorso = Path.Combine(
+                Application.StartupPath,
+                "immagini",
+                c.GetNomeImmagine()
+            );
+
+            Bitmap finale = new Bitmap(larghezza, altezza);
+            Graphics g = Graphics.FromImage(finale);
+            g.Clear(Color.White);
+
+            if (File.Exists(percorso))
+            {
+                Bitmap originale = new Bitmap(percorso);
+                g.DrawImage(originale, 0, 0, larghezza, altezza);
+                originale.Dispose();
+            }
+
+            // --- SEME IN ALTO AL CENTRO ---
+            string seme = c.Seme.ToString();
+            Font fontSeme = new Font("Arial", 9, FontStyle.Bold);
+            SizeF dimSeme = g.MeasureString(seme, fontSeme);
+            float xSeme = (larghezza - dimSeme.Width) / 2;
+
+            Color coloreSeme;
+            if (c.Seme == Seme.Coppe)
+            {
+                coloreSeme = Color.Blue;
+            }
+            else if (c.Seme == Seme.Denari)
+            {
+                coloreSeme = Color.Orange;
+            }
+            else if (c.Seme == Seme.Bastoni)
+            {
+                coloreSeme = Color.Green;
+            }
+            else
+            {
+                coloreSeme = Color.Red;
+            }
+
+            g.FillRectangle(
+                new SolidBrush(Color.FromArgb(200, Color.White)),
+                xSeme - 2, 2,
+                dimSeme.Width + 4, dimSeme.Height
+            );
+            g.DrawString(seme, fontSeme, new SolidBrush(coloreSeme), xSeme, 2);
+
+            // --- NUMERO IN BASSO A DESTRA ---
+            string numero = "";
+            if (c.Valore == 1)
+            {
+                numero = "A";
+            }
+            else if (c.Valore == 8)
+            {
+                numero = "J";
+            }
+            else if (c.Valore == 9)
+            {
+                numero = "Q";
+            }
+            else if (c.Valore == 10)
+            {
+                numero = "K";
+            }
+            else
+            {
+                numero = c.Valore.ToString();
+            }
+
+            Font fontNumero = new Font("Arial", 22, FontStyle.Bold);
+            SizeF dimNumero = g.MeasureString(numero, fontNumero);
+            float xNumero = larghezza - dimNumero.Width - 4;
+            float yNumero = altezza - dimNumero.Height - 4;
+
+            g.FillRectangle(
+                new SolidBrush(Color.FromArgb(180, Color.Black)),
+                xNumero - 4, yNumero - 2,
+                dimNumero.Width + 8, dimNumero.Height + 2
+            );
+            g.DrawString(numero, fontNumero, new SolidBrush(Color.Yellow), xNumero, yNumero);
+
+            g.Dispose();
+            return finale;
+        }
+
         private void GestisciMessaggio(Messaggio msg)
         {
             if (msg.Tipo == "INFO")
             {
                 lblStato.Text = msg.Payload;
 
-                // Capisce se siamo G1 o G2 dal messaggio di benvenuto
                 if (msg.Payload.Contains("Giocatore 1"))
                 {
                     _mioNumero = 1;
@@ -101,7 +245,14 @@ namespace BriscolaPokemon.Client
             }
             else if (msg.Tipo == "BRISCOLA")
             {
-                lblBriscola.Text = "Briscola: " + msg.Payload;
+                lblBriscola.Text = "Briscola:";
+
+                Carta cartaBriscola = StringToCarta(msg.Payload);
+                if (cartaBriscola != null)
+                {
+                    picBriscola.Image = CreaImmagineCarta(cartaBriscola, picBriscola.Width, picBriscola.Height);
+                    picBriscola.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
             }
             else if (msg.Tipo == "MANO")
             {
@@ -128,7 +279,18 @@ namespace BriscolaPokemon.Client
             }
             else if (msg.Tipo == "AVVERSARIO_HA_GIOCATO")
             {
-                lblAvversario.Text = "Carta avversario: " + msg.Payload;
+                // Mostra la carta dell'avversario come immagine
+                Carta cartaAvversario = StringToCarta(msg.Payload);
+                if (cartaAvversario != null)
+                {
+                    picCartaAvversario.Image = CreaImmagineCarta(cartaAvversario, picCartaAvversario.Width, picCartaAvversario.Height);
+                    picCartaAvversario.SizeMode = PictureBoxSizeMode.StretchImage;
+                    lblAvversario.Text = "Carta avversario:";
+                }
+            }
+            else if (msg.Tipo == "CARTE_MAZZO")
+            {
+                lblMazzo.Text = "Carte nel mazzo: " + msg.Payload;
             }
             else if (msg.Tipo == "PESCA")
             {
@@ -142,11 +304,11 @@ namespace BriscolaPokemon.Client
             else if (msg.Tipo == "FINE_MANO")
             {
                 lblStato.Text = "Ha vinto la mano: Giocatore " + msg.Payload;
-                lblAvversario.Text = "Carta avversario: ";
+                lblAvversario.Text = "Carta avversario:";
+                picCartaAvversario.Image = null; // pulisce la carta avversario
             }
             else if (msg.Tipo == "PUNTEGGI")
             {
-                // Il payload arriva tipo "15,22"
                 string[] parti = msg.Payload.Split(',');
                 int puntiG1 = int.Parse(parti[0]);
                 int puntiG2 = int.Parse(parti[1]);
@@ -162,7 +324,6 @@ namespace BriscolaPokemon.Client
             }
             else if (msg.Tipo == "CARTE_PRESE")
             {
-                // Il payload arriva tipo "1;Coppe_3,Bastoni_7"
                 string[] parti = msg.Payload.Split(';');
                 int vincitore = int.Parse(parti[0]);
                 string[] carte = parti[1].Split(',');
@@ -187,7 +348,6 @@ namespace BriscolaPokemon.Client
                 lblStato.Text = "Partita finita!";
                 AbilitaCarte(false);
 
-                // Legge i punteggi finali
                 string[] parti = msg.Payload.Split(',');
                 int puntiG1 = int.Parse(parti[0]);
                 int puntiG2 = int.Parse(parti[1]);
@@ -231,7 +391,7 @@ namespace BriscolaPokemon.Client
                 MessageBox.Show("Errore: " + msg.Payload);
             }
         }
-        // Crea un bottone per ogni carta nella mano
+
         private void MostraCarte()
         {
             for (int i = 0; i < _bottoniCarte.Count; i++)
@@ -247,7 +407,7 @@ namespace BriscolaPokemon.Client
                 btn.Width = 90;
                 btn.Height = 120;
                 btn.Left = 20 + (i * 100);
-                btn.Top = 200;
+                btn.Top = 310;
                 btn.Tag = c;
                 btn.Click += BtnCarta_Click;
                 btn.Enabled = _mioTurno;
@@ -260,83 +420,7 @@ namespace BriscolaPokemon.Client
 
                 if (File.Exists(percorso))
                 {
-                    Bitmap originale = new Bitmap(percorso);
-                    Bitmap finale = new Bitmap(btn.Width, btn.Height);
-                    Graphics g = Graphics.FromImage(finale);
-
-                    g.Clear(Color.White);
-                    g.DrawImage(originale, 0, 0, btn.Width, btn.Height);
-
-                    // --- SEME IN ALTO AL CENTRO ---
-                    string seme = c.Seme.ToString();
-                    Font fontSeme = new Font("Arial", 9, FontStyle.Bold);
-                    SizeF dimSeme = g.MeasureString(seme, fontSeme);
-                    float xSeme = (btn.Width - dimSeme.Width) / 2;
-
-                    // Colore diverso per ogni seme
-                    Color coloreSeme;
-                    if (c.Seme == Seme.Coppe)
-                    {
-                        coloreSeme = Color.Blue;
-                    }
-                    else if (c.Seme == Seme.Denari)
-                    {
-                        coloreSeme = Color.Orange;
-                    }
-                    else if (c.Seme == Seme.Bastoni)
-                    {
-                        coloreSeme = Color.Green;
-                    }
-                    else
-                    {
-                        coloreSeme = Color.Red;
-                    }
-
-                    // Sfondo bianco dietro al nome del seme
-                    g.FillRectangle(
-                        new SolidBrush(Color.FromArgb(200, Color.White)),
-                        xSeme - 2, 2,
-                        dimSeme.Width + 4, dimSeme.Height
-                    );
-
-                    // Scrivi il seme colorato
-                    g.DrawString(seme, fontSeme, new SolidBrush(coloreSeme), xSeme, 2);
-
-                    // --- NUMERO IN BASSO A DESTRA ---
-                    string numero = "";
-                    if (c.Valore == 8)
-                    {
-                        numero = "J";
-                    }
-                    else if (c.Valore == 9)
-                    {
-                        numero = "Q";
-                    }
-                    else if (c.Valore == 10)
-                    {
-                        numero = "K";
-                    }
-                    else
-                    {
-                        numero = c.Valore.ToString();
-                    }
-                    Font fontNumero = new Font("Arial", 22, FontStyle.Bold);
-                    SizeF dimNumero = g.MeasureString(numero, fontNumero);
-                    float xNumero = btn.Width - dimNumero.Width - 4;
-                    float yNumero = btn.Height - dimNumero.Height - 4;
-
-                    g.FillRectangle(
-                        new SolidBrush(Color.FromArgb(180, Color.Black)),
-                        xNumero - 4, yNumero - 2,
-                        dimNumero.Width + 8, dimNumero.Height + 2
-                    );
-
-                    g.DrawString(numero, fontNumero, new SolidBrush(Color.Yellow), xNumero, yNumero);
-
-                    g.Dispose();
-                    originale.Dispose();
-
-                    btn.Image = finale;
+                    btn.Image = CreaImmagineCarta(c, btn.Width, btn.Height);
                     btn.ImageAlign = ContentAlignment.MiddleCenter;
                     btn.Text = "";
                 }
