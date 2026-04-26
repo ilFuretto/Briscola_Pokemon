@@ -146,6 +146,9 @@ while (true)
     InviaMessaggio(client1, "FINE_MANO", turno.ToString());
     InviaMessaggio(client2, "FINE_MANO", turno.ToString());
 
+    InviaMessaggio(client1, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
+    InviaMessaggio(client2, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
+
     // Manda i punteggi aggiornati ad entrambi
     InviaMessaggio(client1, "PUNTEGGI", puntiGiocatore1 + "," + puntiGiocatore2);
     InviaMessaggio(client2, "PUNTEGGI", puntiGiocatore1 + "," + puntiGiocatore2);
@@ -158,21 +161,43 @@ while (true)
     // --- FASE 4: pesca nuove carte se ce ne sono ---
     if (mazzo.GetCarteRimaste() > 0)
     {
-        Carta nuovaApertura = mazzo.Pesca();
-        Carta nuovaRisposta = mazzo.Pesca();
+        // Il vincitore pesca per primo, il perdente per secondo
+        TcpClient clientVincitore;
+        TcpClient clientPerdente;
+        List<Carta> manoVincitore;
+        List<Carta> manoPerdente;
 
-        // Controlla che le carte non siano null prima di aggiungerle
-        if (nuovaApertura != null)
+        if (turno == numeroGiocatoreApre)
         {
-            manoCheApre.Add(nuovaApertura);
-            InviaMessaggio(clientCheApre, "PESCA", nuovaApertura.ToString());
+            clientVincitore = clientCheApre;
+            clientPerdente = clientCheRisponde;
+            manoVincitore = manoCheApre;
+            manoPerdente = manoCheRisponde;
         }
-        if (nuovaRisposta != null)
+        else
         {
-            manoCheRisponde.Add(nuovaRisposta);
-            InviaMessaggio(clientCheRisponde, "PESCA", nuovaRisposta.ToString());
+            clientVincitore = clientCheRisponde;
+            clientPerdente = clientCheApre;
+            manoVincitore = manoCheRisponde;
+            manoPerdente = manoCheApre;
+        }
+
+        Carta cartaVincitore = mazzo.Pesca();
+        if (cartaVincitore != null)
+        {
+            manoVincitore.Add(cartaVincitore);
+            InviaMessaggio(clientVincitore, "PESCA", cartaVincitore.ToString());
+        }
+
+        Carta cartaPerdente = mazzo.Pesca();
+        if (cartaPerdente != null)
+        {
+            manoPerdente.Add(cartaPerdente);
+            InviaMessaggio(clientPerdente, "PESCA", cartaPerdente.ToString());
         }
     }
+    InviaMessaggio(client1, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
+    InviaMessaggio(client2, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
 
     // --- FASE 5: controlla se la partita è finita ---
     if (manoGiocatore1.Count == 0 && manoGiocatore2.Count == 0)
