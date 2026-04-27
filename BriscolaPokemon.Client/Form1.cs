@@ -386,6 +386,41 @@ namespace BriscolaPokemon.Client
 
                 MessageBox.Show(messaggio, "Fine Partita", MessageBoxButtons.OK);
             }
+            else if (msg.Tipo == "RIVINCITA")
+            {
+                DialogResult risposta = MessageBox.Show(
+                    "Vuoi fare una rivincita?",
+                    "Rivincita",
+                    MessageBoxButtons.YesNo
+                );
+
+                if (risposta == DialogResult.Yes)
+                {
+                    InviaMessaggio("RISPOSTA_RIVINCITA", "SI");
+                    lblStato.Text = "Aspetta la risposta dell'avversario...";
+                }
+                else
+                {
+                    InviaMessaggio("RISPOSTA_RIVINCITA", "NO");
+                    lblStato.Text = "Hai rifiutato la rivincita.";
+                }
+            }
+            else if (msg.Tipo == "RIGIOCA")
+            {
+                lstCartePrese.Items.Clear();
+                lblAvversario.Text = "Carta avversario:";
+                picCartaAvversario.Image = null;
+                picBriscola.Image = null;
+                lblMazzo.Text = "Carte nel mazzo: ";
+                lblPunteggi.Text = "Punti tuoi: 0 - Punti avversario: 0";
+                lblStato.Text = "Nuova partita in arrivo...";
+                _mano.Clear();
+                MostraCarte();
+            }
+            else if (msg.Tipo == "ABBANDONA")
+            {
+                lblStato.Text = "Partita terminata. Puoi chiudere il gioco.";
+            }
             else if (msg.Tipo == "ERRORE")
             {
                 MessageBox.Show("Errore: " + msg.Payload);

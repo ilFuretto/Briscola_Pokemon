@@ -18,195 +18,200 @@ TcpClient client2 = server.AcceptTcpClient();
 Console.WriteLine("Giocatore 2 connesso!");
 InviaMessaggio(client2, "INFO", "Sei il Giocatore 2. La partita sta per iniziare!");
 
-// --- INIZIO PARTITA ---
-Mazzo mazzo = new Mazzo();
-mazzo.Mischia();
-
-List<Carta> manoGiocatore1 = new List<Carta>();
-List<Carta> manoGiocatore2 = new List<Carta>();
-
-for (int i = 0; i < 3; i++)
-{
-    manoGiocatore1.Add(mazzo.Pesca());
-    manoGiocatore2.Add(mazzo.Pesca());
-}
-
-Carta briscola = mazzo.Pesca();
-Console.WriteLine("Briscola: " + briscola.ToString());
-
-InviaMessaggio(client1, "BRISCOLA", briscola.ToString());
-InviaMessaggio(client2, "BRISCOLA", briscola.ToString());
-// Rimette la briscola in fondo al mazzo
-mazzo.AggiungiFondo(briscola);
-
-InviaMessaggio(client1, "MANO", CarteLista(manoGiocatore1));
-InviaMessaggio(client2, "MANO", CarteLista(manoGiocatore2));
-
-int turno = 1; // chi apre la mano (1 o 2)
-int puntiGiocatore1 = 0;
-int puntiGiocatore2 = 0;
-
-Console.WriteLine("Partita iniziata! Turno del Giocatore 1");
-
-// --- LOOP DI GIOCO ---
-// Ogni iterazione del while gestisce una mano completa
+// --- LOOP PARTITE (permette la rivincita) ---
 while (true)
 {
-    // Decidiamo chi apre e chi risponde in base al turno
-    TcpClient clientCheApre;
-    TcpClient clientCheRisponde;
-    List<Carta> manoCheApre;
-    List<Carta> manoCheRisponde;
-    int numeroGiocatoreApre;
-    int numeroGiocatoreRisponde;
+    // --- INIZIO PARTITA ---
+    Mazzo mazzo = new Mazzo();
+    mazzo.Mischia();
 
-    if (turno == 1)
+    List<Carta> manoGiocatore1 = new List<Carta>();
+    List<Carta> manoGiocatore2 = new List<Carta>();
+
+    for (int i = 0; i < 3; i++)
     {
-        clientCheApre = client1;
-        clientCheRisponde = client2;
-        manoCheApre = manoGiocatore1;
-        manoCheRisponde = manoGiocatore2;
-        numeroGiocatoreApre = 1;
-        numeroGiocatoreRisponde = 2;
-    }
-    else
-    {
-        clientCheApre = client2;
-        clientCheRisponde = client1;
-        manoCheApre = manoGiocatore2;
-        manoCheRisponde = manoGiocatore1;
-        numeroGiocatoreApre = 2;
-        numeroGiocatoreRisponde = 1;
+        manoGiocatore1.Add(mazzo.Pesca());
+        manoGiocatore2.Add(mazzo.Pesca());
     }
 
-    // --- FASE 1: chi apre gioca la sua carta ---
-    InviaMessaggio(clientCheApre, "TUO_TURNO", "");
-    InviaMessaggio(clientCheRisponde, "ASPETTA", "");
+    Carta briscola = mazzo.Pesca();
+    Console.WriteLine("Briscola: " + briscola.ToString());
 
-    Carta cartaApertura = null;
-    while (cartaApertura == null)
-    {
-        string mossa = RiceviMessaggio(clientCheApre);
-        cartaApertura = TrovaCarta(manoCheApre, mossa);
-        if (cartaApertura == null)
-        {
-            InviaMessaggio(clientCheApre, "ERRORE", "Carta non valida!");
-        }
-    }
-    manoCheApre.Remove(cartaApertura);
-    Console.WriteLine("G" + numeroGiocatoreApre + " ha giocato: " + cartaApertura.ToString());
+    InviaMessaggio(client1, "BRISCOLA", briscola.ToString());
+    InviaMessaggio(client2, "BRISCOLA", briscola.ToString());
+    mazzo.AggiungiFondo(briscola);
 
-    // Informa chi risponde della carta giocata
-    InviaMessaggio(clientCheRisponde, "AVVERSARIO_HA_GIOCATO", cartaApertura.ToString());
-
-    // --- FASE 2: chi risponde gioca la sua carta ---
-    InviaMessaggio(clientCheRisponde, "TUO_TURNO", "");
-    InviaMessaggio(clientCheApre, "ASPETTA", "");
-
-    Carta cartaRisposta = null;
-    while (cartaRisposta == null)
-    {
-        string mossa = RiceviMessaggio(clientCheRisponde);
-        cartaRisposta = TrovaCarta(manoCheRisponde, mossa);
-        if (cartaRisposta == null)
-        {
-            InviaMessaggio(clientCheRisponde, "ERRORE", "Carta non valida!");
-        }
-    }
-    manoCheRisponde.Remove(cartaRisposta);
-    Console.WriteLine("G" + numeroGiocatoreRisponde + " ha giocato: " + cartaRisposta.ToString());
-
-    // --- FASE 3: calcola chi ha vinto la mano ---
-    // Attenzione: CalcolaVincitore restituisce 1 se vince cartaApertura, 2 se vince cartaRisposta
-    int risultato = CalcolaVincitore(cartaApertura, cartaRisposta, briscola.Seme);
-
-    if (risultato == 1)
-    {
-        turno = numeroGiocatoreApre;
-    }
-    else
-    {
-        turno = numeroGiocatoreRisponde;
-    }
-
-    // Aggiunge i punti delle due carte al vincitore
-    int puntiMano = cartaApertura.GetPunti() + cartaRisposta.GetPunti();
-    if (turno == 1)
-    {
-        puntiGiocatore1 += puntiMano;
-    }
-    else
-    {
-        puntiGiocatore2 += puntiMano;
-    }
-
-    Console.WriteLine("Vince la mano: Giocatore " + turno);
-    Console.WriteLine("Punti: G1=" + puntiGiocatore1 + " G2=" + puntiGiocatore2);
-
-    InviaMessaggio(client1, "FINE_MANO", turno.ToString());
-    InviaMessaggio(client2, "FINE_MANO", turno.ToString());
+    InviaMessaggio(client1, "MANO", CarteLista(manoGiocatore1));
+    InviaMessaggio(client2, "MANO", CarteLista(manoGiocatore2));
 
     InviaMessaggio(client1, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
     InviaMessaggio(client2, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
 
-    // Manda i punteggi aggiornati ad entrambi
-    InviaMessaggio(client1, "PUNTEGGI", puntiGiocatore1 + "," + puntiGiocatore2);
-    InviaMessaggio(client2, "PUNTEGGI", puntiGiocatore1 + "," + puntiGiocatore2);
+    int turno = 1;
+    int puntiGiocatore1 = 0;
+    int puntiGiocatore2 = 0;
 
-    // Manda le carte prese al vincitore
-    string cartePrese = cartaApertura.ToString() + "," + cartaRisposta.ToString();
-    InviaMessaggio(client1, "CARTE_PRESE", turno + ";" + cartePrese);
-    InviaMessaggio(client2, "CARTE_PRESE", turno + ";" + cartePrese);
+    Console.WriteLine("Partita iniziata! Turno del Giocatore 1");
 
-    // --- FASE 4: pesca nuove carte se ce ne sono ---
-    if (mazzo.GetCarteRimaste() > 0)
+    // --- LOOP DI GIOCO ---
+    while (true)
     {
-        // Il vincitore pesca per primo, il perdente per secondo
-        TcpClient clientVincitore;
-        TcpClient clientPerdente;
-        List<Carta> manoVincitore;
-        List<Carta> manoPerdente;
+        TcpClient clientCheApre;
+        TcpClient clientCheRisponde;
+        List<Carta> manoCheApre;
+        List<Carta> manoCheRisponde;
+        int numeroGiocatoreApre;
+        int numeroGiocatoreRisponde;
 
-        if (turno == numeroGiocatoreApre)
+        if (turno == 1)
         {
-            clientVincitore = clientCheApre;
-            clientPerdente = clientCheRisponde;
-            manoVincitore = manoCheApre;
-            manoPerdente = manoCheRisponde;
+            clientCheApre = client1;
+            clientCheRisponde = client2;
+            manoCheApre = manoGiocatore1;
+            manoCheRisponde = manoGiocatore2;
+            numeroGiocatoreApre = 1;
+            numeroGiocatoreRisponde = 2;
         }
         else
         {
-            clientVincitore = clientCheRisponde;
-            clientPerdente = clientCheApre;
-            manoVincitore = manoCheRisponde;
-            manoPerdente = manoCheApre;
+            clientCheApre = client2;
+            clientCheRisponde = client1;
+            manoCheApre = manoGiocatore2;
+            manoCheRisponde = manoGiocatore1;
+            numeroGiocatoreApre = 2;
+            numeroGiocatoreRisponde = 1;
         }
 
-        Carta cartaVincitore = mazzo.Pesca();
-        if (cartaVincitore != null)
+        // --- FASE 1: chi apre gioca ---
+        InviaMessaggio(clientCheApre, "TUO_TURNO", "");
+        InviaMessaggio(clientCheRisponde, "ASPETTA", "");
+
+        Carta cartaApertura = null;
+        while (cartaApertura == null)
         {
-            manoVincitore.Add(cartaVincitore);
-            InviaMessaggio(clientVincitore, "PESCA", cartaVincitore.ToString());
+            string mossa = RiceviMessaggio(clientCheApre);
+            cartaApertura = TrovaCarta(manoCheApre, mossa);
+            if (cartaApertura == null)
+                InviaMessaggio(clientCheApre, "ERRORE", "Carta non valida!");
+        }
+        manoCheApre.Remove(cartaApertura);
+        Console.WriteLine("G" + numeroGiocatoreApre + " ha giocato: " + cartaApertura.ToString());
+
+        InviaMessaggio(clientCheRisponde, "AVVERSARIO_HA_GIOCATO", cartaApertura.ToString());
+
+        // --- FASE 2: chi risponde gioca ---
+        InviaMessaggio(clientCheRisponde, "TUO_TURNO", "");
+        InviaMessaggio(clientCheApre, "ASPETTA", "");
+
+        Carta cartaRisposta = null;
+        while (cartaRisposta == null)
+        {
+            string mossa = RiceviMessaggio(clientCheRisponde);
+            cartaRisposta = TrovaCarta(manoCheRisponde, mossa);
+            if (cartaRisposta == null)
+                InviaMessaggio(clientCheRisponde, "ERRORE", "Carta non valida!");
+        }
+        manoCheRisponde.Remove(cartaRisposta);
+        Console.WriteLine("G" + numeroGiocatoreRisponde + " ha giocato: " + cartaRisposta.ToString());
+
+        // --- FASE 3: calcola vincitore ---
+        int risultato = CalcolaVincitore(cartaApertura, cartaRisposta, briscola.Seme);
+
+        if (risultato == 1)
+            turno = numeroGiocatoreApre;
+        else
+            turno = numeroGiocatoreRisponde;
+
+        int puntiMano = cartaApertura.GetPunti() + cartaRisposta.GetPunti();
+        if (turno == 1)
+            puntiGiocatore1 += puntiMano;
+        else
+            puntiGiocatore2 += puntiMano;
+
+        Console.WriteLine("Vince la mano: Giocatore " + turno);
+        Console.WriteLine("Punti: G1=" + puntiGiocatore1 + " G2=" + puntiGiocatore2);
+
+        InviaMessaggio(client1, "FINE_MANO", turno.ToString());
+        InviaMessaggio(client2, "FINE_MANO", turno.ToString());
+
+        string cartePrese = cartaApertura.ToString() + "," + cartaRisposta.ToString();
+        InviaMessaggio(client1, "CARTE_PRESE", turno + ";" + cartePrese);
+        InviaMessaggio(client2, "CARTE_PRESE", turno + ";" + cartePrese);
+
+        InviaMessaggio(client1, "PUNTEGGI", puntiGiocatore1 + "," + puntiGiocatore2);
+        InviaMessaggio(client2, "PUNTEGGI", puntiGiocatore1 + "," + puntiGiocatore2);
+
+        // --- FASE 4: pesca ---
+        if (mazzo.GetCarteRimaste() > 0)
+        {
+            TcpClient clientVincitore;
+            TcpClient clientPerdente;
+            List<Carta> manoVincitore;
+            List<Carta> manoPerdente;
+
+            if (turno == numeroGiocatoreApre)
+            {
+                clientVincitore = clientCheApre;
+                clientPerdente = clientCheRisponde;
+                manoVincitore = manoCheApre;
+                manoPerdente = manoCheRisponde;
+            }
+            else
+            {
+                clientVincitore = clientCheRisponde;
+                clientPerdente = clientCheApre;
+                manoVincitore = manoCheRisponde;
+                manoPerdente = manoCheApre;
+            }
+
+            Carta cartaVincitore = mazzo.Pesca();
+            if (cartaVincitore != null)
+            {
+                manoVincitore.Add(cartaVincitore);
+                InviaMessaggio(clientVincitore, "PESCA", cartaVincitore.ToString());
+            }
+
+            Carta cartaPerdente = mazzo.Pesca();
+            if (cartaPerdente != null)
+            {
+                manoPerdente.Add(cartaPerdente);
+                InviaMessaggio(clientPerdente, "PESCA", cartaPerdente.ToString());
+            }
         }
 
-        Carta cartaPerdente = mazzo.Pesca();
-        if (cartaPerdente != null)
+        InviaMessaggio(client1, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
+        InviaMessaggio(client2, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
+
+        // --- FASE 5: controlla fine partita ---
+        if (manoGiocatore1.Count == 0 && manoGiocatore2.Count == 0)
         {
-            manoPerdente.Add(cartaPerdente);
-            InviaMessaggio(clientPerdente, "PESCA", cartaPerdente.ToString());
+            string punteggiFinali = puntiGiocatore1 + "," + puntiGiocatore2;
+            InviaMessaggio(client1, "FINE_PARTITA", punteggiFinali);
+            InviaMessaggio(client2, "FINE_PARTITA", punteggiFinali);
+            Console.WriteLine("Partita terminata! G1=" + puntiGiocatore1 + " G2=" + puntiGiocatore2);
+            break; // esce dal loop di gioco
         }
     }
-    InviaMessaggio(client1, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
-    InviaMessaggio(client2, "CARTE_MAZZO", mazzo.GetCarteRimaste().ToString());
 
-    // --- FASE 5: controlla se la partita è finita ---
-    if (manoGiocatore1.Count == 0 && manoGiocatore2.Count == 0)
+    // --- RIVINCITA ---
+    InviaMessaggio(client1, "RIVINCITA", "");
+    InviaMessaggio(client2, "RIVINCITA", "");
+
+    string rispostaG1 = RiceviMessaggio(client1).ToUpper();
+    string rispostaG2 = RiceviMessaggio(client2).ToUpper();
+
+    if (rispostaG1 == "SI" && rispostaG2 == "SI")
     {
-        string punteggiFinali = puntiGiocatore1 + "," + puntiGiocatore2;
-        InviaMessaggio(client1, "FINE_PARTITA", punteggiFinali);
-        InviaMessaggio(client2, "FINE_PARTITA", punteggiFinali);
-        Console.WriteLine("Partita terminata! G1=" + puntiGiocatore1 + " G2=" + puntiGiocatore2);
-        break;
+        Console.WriteLine("Entrambi vogliono rigiocare!");
+        InviaMessaggio(client1, "RIGIOCA", "");
+        InviaMessaggio(client2, "RIGIOCA", "");
+    }
+    else
+    {
+        Console.WriteLine("Uno o entrambi non vogliono rigiocare.");
+        InviaMessaggio(client1, "ABBANDONA", "");
+        InviaMessaggio(client2, "ABBANDONA", "");
+        break; 
     }
 }
 

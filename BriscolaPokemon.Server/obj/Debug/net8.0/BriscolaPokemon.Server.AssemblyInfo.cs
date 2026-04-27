@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BriscolaPokemon.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d19b3702e647f020a59dd6018c1eeb116fe18b20")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7803f398e0d1c4d075523ac97b2fb3ba8f03815")]
 [assembly: System.Reflection.AssemblyProductAttribute("BriscolaPokemon.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BriscolaPokemon.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

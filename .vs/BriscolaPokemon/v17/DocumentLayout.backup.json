@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|solutionrelative:briscolapokemon.client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|solutionrelative:briscolapokemon.client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,12 +11,24 @@
       "RelativeMoniker": "D:0:0:{719662C4-2DF2-4BDC-ACCF-ED53EBD6F19E}|BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj|solutionrelative:briscolapokemon.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.core\\mazzo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|solutionrelative:briscolapokemon.core\\mazzo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{719662C4-2DF2-4BDC-ACCF-ED53EBD6F19E}|BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.server\\briscolapokemon.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{719662C4-2DF2-4BDC-ACCF-ED53EBD6F19E}|BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj|solutionrelative:briscolapokemon.server\\briscolapokemon.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|solutionrelative:briscolapokemon.client\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EDB6A086-4B90-45DD-A9E7-075AD46FBC6C}|BriscolaPokemon.Downloader\\BriscolaPokemon.Downloader.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.downloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EDB6A086-4B90-45DD-A9E7-075AD46FBC6C}|BriscolaPokemon.Downloader\\BriscolaPokemon.Downloader.csproj|solutionrelative:briscolapokemon.downloader\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|solutionrelative:briscolapokemon.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.core\\mazzo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|solutionrelative:briscolapokemon.core\\mazzo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CF82045B-CFE0-478B-92D4-09E907985EFA}|BriscolaPokemon.Client\\BriscolaPokemon.Client.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.client\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.core\\carta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|solutionrelative:briscolapokemon.core\\carta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{719662C4-2DF2-4BDC-ACCF-ED53EBD6F19E}|BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.server\\briscolapokemon.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{719662C4-2DF2-4BDC-ACCF-ED53EBD6F19E}|BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj|solutionrelative:briscolapokemon.server\\briscolapokemon.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9B4B6F92-DE8E-4371-A820-D9CA42A0EC7C}|BriscolaPokemon.Core\\BriscolaPokemon.Core.csproj|c:\\users\\admin\\desktop\\briscola_pokemon\\briscolapokemon.core\\seme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,11 +54,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Program.cs",
+              "RelativeDocumentMoniker": "BriscolaPokemon.Client\\Program.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Program.cs",
+              "RelativeToolTip": "BriscolaPokemon.Client\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T20:05:26.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Form1.cs [Progettazione]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Form1.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Client\\Form1.cs",
@@ -74,61 +91,64 @@
               "RelativeToolTip": "BriscolaPokemon.Downloader\\Program.cs",
               "ViewState": "AgIAABsAAAAAAAAAAAAuwC8AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T19:12:05.749Z"
+              "WhenOpened": "2026-04-25T19:12:05.749Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Form1.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Client\\Form1.cs",
               "ToolTip": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Form1.cs",
               "RelativeToolTip": "BriscolaPokemon.Client\\Form1.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAApwFEAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAH8BAAAAAAAAAAAYwKYBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-25T18:58:42.311Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Server\\Program.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Server\\Program.cs",
               "ToolTip": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Server\\Program.cs",
               "RelativeToolTip": "BriscolaPokemon.Server\\Program.cs",
-              "ViewState": "AgIAAJ4AAAAAAAAAAAAuwKAAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAnwLEAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T16:29:31.932Z"
+              "WhenOpened": "2026-04-24T16:29:31.932Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Mazzo.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Core\\Mazzo.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Core\\Mazzo.cs",
               "ToolTip": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Core\\Mazzo.cs",
               "RelativeToolTip": "BriscolaPokemon.Core\\Mazzo.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAAAD0AAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAADoAAAAAAAAAAIBJwD0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T16:55:04.26Z"
+              "WhenOpened": "2026-04-24T16:55:04.26Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Client\\Form1.Designer.cs",
               "ToolTip": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Client\\Form1.Designer.cs",
               "RelativeToolTip": "BriscolaPokemon.Client\\Form1.Designer.cs",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAuwH8AAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAuwBYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-26T09:55:02.904Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "BriscolaPokemon.Server.csproj",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj",
               "RelativeDocumentMoniker": "BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj",
@@ -136,23 +156,25 @@
               "RelativeToolTip": "BriscolaPokemon.Server\\BriscolaPokemon.Server.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-24T16:30:56.965Z"
+              "WhenOpened": "2026-04-24T16:30:56.965Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Carta.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Core\\Carta.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Core\\Carta.cs",
               "ToolTip": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Core\\Carta.cs",
               "RelativeToolTip": "BriscolaPokemon.Core\\Carta.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAIBJwAcAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBZwAcAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T16:54:25.308Z"
+              "WhenOpened": "2026-04-24T16:54:25.308Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Seme.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Core\\Seme.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Core\\Seme.cs",
@@ -160,11 +182,12 @@
               "RelativeToolTip": "BriscolaPokemon.Core\\Seme.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T16:32:06.536Z"
+              "WhenOpened": "2026-04-24T16:32:06.536Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Messaggio.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Briscola_Pokemon\\BriscolaPokemon.Core\\Messaggio.cs",
               "RelativeDocumentMoniker": "BriscolaPokemon.Core\\Messaggio.cs",
@@ -172,7 +195,8 @@
               "RelativeToolTip": "BriscolaPokemon.Core\\Messaggio.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T16:55:26.212Z"
+              "WhenOpened": "2026-04-24T16:55:26.212Z",
+              "EditorCaption": ""
             }
           ]
         }
